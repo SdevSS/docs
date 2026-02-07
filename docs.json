@@ -29,6 +29,13 @@
                         "pages": [
                             "advanced/macros"
                         ]
+                    },
+                    {
+                        "group": "Legal Stuff",
+                        "pages": [
+                            "legal/tos",
+                            "legal/privacy"
+                        ]
                     }
                 ]
             },
