@@ -1,0 +1,126 @@
+---
+title: "Central Manual"
+description: "Start using AzarineGuard services in minutes."
+icon: 'globe'
+---
+
+<Note>This guide assumes that **you already bought a subscription**, if not [BUY IT!](https://discord.azguard.my.id)</Note>
+
+### Step 1: Log-in to AzarineGuard
+
+<AccordionGroup>
+  <Accordion icon="key" title="Log-in to Central (Dashboard)">
+    <img height="50" src="/images/tutorials/loginpage.jpg" />
+    Please log-in to [AzarineGuard Central](https://central.azguard.my.id) with your API Key and complete a captcha.
+    > Your API Key must look like: `AZG_XXXXXXXXXXXXXXXXXXXXX` (25 Characters)
+  </Accordion>
+  <Accordion icon="lock" title="Two Factor Authentication">
+    <img height="50" src="/images/tutorials/2FA_setup.jpg"/>
+    #### Setup Steps:
+    1. Install [Google Authenticator](https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2)
+    2. Scan the QR Code provided by AzarineGuard
+    3. Enter the code displayed on the Authenticator
+    ---
+    <img height="50" src="/images/tutorials/2FA_normal.jpg"/>
+    #### Normal Steps:
+    1. Open your [Google Authenticator](https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2)
+    2. Enter the code displayed on the Authenticator
+
+    <Tip> If you lost your codes, please immediately contact @justinno (Discord) </Tip>
+    
+  </Accordion>
+</AccordionGroup>
+
+### Step 2: Manage Scripts & Folders
+<Tip> Script Folders acts a mandatory grouping for Scripts to use other features </Tip>
+
+<AccordionGroup>
+  <Accordion icon="folder" title="Create a Folder">
+    <img height="50" src="/images/tutorials/dashboard_folder.jpg"/>
+    #### Creating Steps:
+    1. Kindly, click on **+** on your left side of the [Scripts Page](https://central.azguard.my.id/scripts/)
+    2. Enter some details about the folder*
+
+    _*You may use COMPANY_FOLDER format for name (ex: AZGUARD_PREMIUM)_
+  </Accordion>
+  <Accordion icon="file-code" title="Upload a Script">
+    <img height="50" src="/images/tutorials/dashboard_scripts_new.jpg"/>
+    #### Creating Steps:
+    1. Kindly, click on **Create New** on your right side of the [Scripts Page](https://central.azguard.my.id/scripts/)
+    2. Enter the name for your script
+    3. Enter the initial version **_(It's a string)_**
+    4. Assign it to a folder that you just made
+    5. Upload your script in a [Lua (5.1 is better)](https://www.lua.org/) format
+    6. Decide if this script is keyless **_(you can change it later)_**
+  </Accordion>
+  <Accordion icon="pen" title="Editing Scripts / Folders">
+    <img height="50" src="/images/tutorials/dashboard_scripts_edit.jpg"/>
+    Your central should now be somewhat like this. Here are some things you can do:
+
+    #### Folder Actions:
+    - You may Edit your Folder **HWID Reset Allowance & Name**. _NO DELETING!_
+
+    #### Script Actions:
+    1. You may see **Scripts Name, Folder, Version, and Loader**.
+    2. If you do want to change it, click on **Configure**
+    3. If you want to delete it, click on **Delete** (NO UNDO)
+
+  </Accordion>  
+</AccordionGroup>
+
+### Step 3: Manage Keys
+
+<Note> Remember, ``-1`` as a duration always meant **LIFETIME** </Note>
+
+<AccordionGroup>
+  <Accordion icon="folder" title="Select a Folder">
+    <img height="50" src="/images/tutorials/dashboard_keys_select.jpg"/>
+    Access the [Keys Page](https://central.azguard.my.id/keys/) on you AzarineGuard Central
+
+    #### Page Functions:
+    1. You can see **Number of Scripts** and **Total Keys** contained in that folder
+    2. You may download all keys in TXT by clickinng the **Download Icon**
+    3. Click on **Configure** to manage all keys in that Folder
+  </Accordion>
+  <Accordion icon="key" title="Manage Keys from Folder">
+    <img height="50" src="/images/tutorials/dashboard_keys_manage.jpg"/>
+
+    #### Page Functions:
+    1. You can see **Key, Status, Banned, Expiry, HWID** in the explorer
+    2. You may search for **Keys** on the top-right search bar
+    3. You may change entries shown from 10 - 100 per page
+    4. You may downlod all keys by clicking the **Download** button
+    5. You may generate bulk keys by clicking the **Generate** button
+    6. You may import keys in JSON by clicking **Import** button (good for migrations)
+  </Accordion>
+</AccordionGroup>
+
+Congratulations, you have just achived the basics of using AzarineGuard platform! Enjoy the rest of your day and don't forget to read more documentation to use more features.
+
+## Next steps
+
+Now that you've learned the basics, explore these key features:
+
+<CardGroup cols={2}>
+
+<Card title="Setup Discord" icon="robot" href="/discord-manual">
+  Learn how to integrate AzarineGuard to your **server**.
+</Card>
+
+<Card title="Setup Monetization" icon="piggy-bank" href="/ads-manual">
+  Monetize your scripts and reward your users after **ads**.
+</Card>
+
+<Card title="Using Macros" icon="square-code" href="/advanced/macros">
+  Integrate AzarineGuard built-in macros such as **Runtime Variables**.
+</Card>
+
+<Card title="Discord Server" icon="discord" href="https://discord.azguard.my.id">
+  Join our official **community** for help and support.
+</Card>
+
+</CardGroup>
+
+<Note>
+  **Need help?** Join our [official discord community](https://discord.azguard.my.id).
+</Note>

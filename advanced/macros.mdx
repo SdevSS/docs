@@ -1,0 +1,70 @@
+---
+title: 'AzarineGuard Macros'
+description: 'We have a built-in macros that you can use in scripts'
+icon: 'gear'
+---
+
+Scripts may need some customer data or script related data, you can use these macros.
+
+## Runtime Variables
+
+<ResponseField name="AZG_ISPREMIUM" type="bool">
+A bool status to check if user is using key or not. <br />
+_Keyless mode scripts only, will show ``true`` otherwise_
+
+Sample: ``true``
+</ResponseField>
+
+<ResponseField name="AZG_SCRIPTNAME" type="string">
+The name of the script executed in a string form.
+
+Sample: ``Sample Script``
+</ResponseField>
+
+<ResponseField name="AZG_SCRIPTVERSION" type="string">
+The version of your script in a string form.
+
+Sample: ``BETA`` / ``V1.1``
+</ResponseField>
+
+<ResponseField name="AZG_KEYEXPIRY" type="bigint">
+Customer key expiry in a form of int epoch time.
+_Will show `0` or `nil` if user didn't use key in keyless mode_
+
+Sample: ``1770456576`` / ``-1`` (-1 is LIFETIME)
+</ResponseField>
+
+<ResponseField name="AZG_KEYFROMADS" type="bool">
+A bool status to check if user key comes from ads system.
+_Will show `false` if user didn't use key in keyless mode_
+
+Sample: ``true``
+</ResponseField>
+
+### Sample Usage
+
+```lua
+print("Welcome to:".. AZG_SCRIPTNAME .. " V".. AZG_SCRIPTVERSION)
+print("You are using Premium: "..tostring(AZG_ISPREMIUM))
+
+local date_time_string
+
+if AZG_KEYEXPIRY == -1 then
+    date_time_string = "Lifetime Access"
+else
+    local epoch_timestamp = AZG_KEYEXPIRY
+
+    local GMT_PLUS_7_OFFSET = 7 * 3600
+
+    local adjusted_timestamp = epoch_timestamp + GMT_PLUS_7_OFFSET
+
+    date_time_string = os.date("%Y-%m-%d %H:%M:%S GMT+7", adjusted_timestamp)
+end
+
+print("Your key will expire on: "..date_time_string)
+print("Your key is from ads: "..tostring(AZG_KEYFROMADS))
+```
+
+
+
+

@@ -1,0 +1,174 @@
+---
+title: 'Discord Manual'
+description: 'Boost up your games by using our Discord Bot'
+icon: 'discord'
+---
+
+<Info>
+  **Prerequisites**:
+  - AzarineGuard subscription with API Key
+  - Invited our official [Discord Bot](https://azguard.my.id/invite-bot) on your server
+</Info>
+
+## Setup Steps
+
+Follow these steps to configure and run AzarineGuard on your Discord Server.
+
+<Steps>
+<Step title="Run Setup Wizzard">
+
+<img height="50" src="/images/tutorials/commands_setup.jpg"/>
+
+```bash
+/setup
+```
+Enter your **API Key**, **Manager Role**, and **Primary Color** (Hex Code ``#0000FF``).
+</Step>
+
+<Step title="Send Panel">
+
+<img height="50" src="/images/tutorials/commands_panel.jpg"/>
+
+```md
+/panel <folder> <channel> <buyer_role>
+```
+`channel`: Target Discord Channel <br />
+`folder`: Target Folder Name <br />
+`buyer_role`: Users Whitelisted Role <br />
+
+Send a panel for users to manage their scripts.
+
+</Step>
+</Steps>
+
+Congratulations, you have successfully integrated AzarineGuard to your Discord Server!
+
+## User Commands
+These commands may be used by regular users, setup must be done beforehand.
+
+<AccordionGroup>
+  <Accordion icon='server'title='Ping Bot'>
+    ```bash
+    /ping
+    ```
+    Responds with the bot latency, used to check Bot Status.
+  </Accordion>
+  <Accordion icon='info'title='Help Commands'>
+    ```bash
+    /help
+    ```
+    Responds with commands list (AzarineGuard Documentation).
+  </Accordion>
+  <Accordion icon='paperclip'title='Get Script'>
+    ```md
+    /getscript <script_name>
+    ```
+    _``script_name``: Target Script Name_<br />
+    Responds with script loader with user key.
+  </Accordion>
+  <Accordion icon='gift'title='Redeem Key'>
+    ```md
+    /redeem <key>
+    ```
+    _``key``: Target Key_<br />
+    Redeem a key to their discord account.
+  </Accordion>
+  <Accordion icon='refresh'title='Reset HWID'>
+    ```md
+    /resethwid <folder>
+    ```
+    _``folder``: Target Folder Name_<br />
+    Reset user HWID, only 1x per 24 hour.
+  </Accordion>
+  <Accordion icon='chart-pie'title='Get Statistics'>
+    ```md
+    /getstats <target> <folder>
+    ```
+    _``target``: Target Discord User / Key_<br />
+    _``folder``: Target Folder Name_<br />
+    Get user stats, user can only search up their own.
+  </Accordion>
+</AccordionGroup>
+
+## Manager Commands
+These commands may be used by managers, setup must be done beforehand.
+
+<AccordionGroup>
+  <Accordion icon='send'title='Send Panel'>  
+    ```md
+    /panel <folder> <channel> <buyer_role>
+    ```
+    _``channel``: Target Discord Channel_<br />
+    _``folder``: Target Folder Name_<br />
+    _``buyer_role``: Users Whitelisted Role_<br />
+    Send a panel for users to manage their scripts.
+  </Accordion>
+  <Accordion icon='chart-pie'title='Get Statistics'>
+    ```md
+    /getstats <target> <folder>
+    ```
+    _``target``: Target Discord User / Key_<br />
+    _``folder``: Target Folder Name_<br />
+    Get user stats, managers may lookup other users.
+  </Accordion>
+  <Accordion icon='pen'title='Whitelist User'>
+    ```md
+    /whitelist <user> <folder> <days>
+    ```
+    _``user``: Target Discord User_<br />
+    _``folder``: Target Folder Name_<br />
+    _``days``: Target Days (-1 for Lifetime)_<br />
+    Generate a key under a Discord User for a specific Folder.
+  </Accordion>
+  <Accordion icon='pen'title='Unwhitelist User'>
+    ```md
+    /unwhitelist <user> <folder> <days>
+    ```
+    _``user``: Target Discord User_<br />
+    _``folder``: Target Folder Name_<br />
+    Delete a key under a Discord User for a specific Folder.
+  </Accordion>
+  <Accordion icon='users'title='Whitelist Role'>
+    ```md
+    /bulkwhitelist <role> <folder> <days>
+    ```
+    _``role``: Target Discord Role_<br />
+    _``folder``: Target Folder Name_<br />
+    _``days``: Target Days (-1 for Lifetime)_
+    Generate keys for members of a Discord Role for a Folder.
+  </Accordion>
+  <Accordion icon='users'title='Unwhitelist Role'>
+    ```md
+    /bulkunwhitelist <role> <folder> <days>
+    ```
+    _``role``: Target Discord Role_<br />
+    _``folder``: Target Folder Name_<br />
+    Delete keys for members of a Discord Role for a Folder.
+  </Accordion>
+  <Accordion icon='key'title='Generate Keys'>
+    ```md
+    /bulkkey <count> <folder> <days>
+    ```
+    _``count``: Keys Generation Count_<br />
+    _``folder``: Target Folder Name_<br />
+    _``days``: Target Days (-1 for Lifetime)_<br />
+    Generate keys for a Folder and export it to TXT.
+  </Accordion>
+</AccordionGroup>
+
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title='Panel Error: This interaction failed'>
+    This may be possible due to the Discord Bot being down, check [Status Page](https://status.azguard.my.id/) <br />
+    If not, resend your panel through the [command](#send-panel) (for managers only).
+
+    If the issue can't be resolved by yourself, contact [Support](https://discord.azguard.my.id/) immediately!
+  </Accordion>
+  <Accordion title='Command Error: Stuck on AzarineGuard is thinking'>
+    This may be possible due to the Discord Bot being down, check [Status Page](https://status.azguard.my.id/)<br />
+    If the issue can't be resolved, contact [Support](https://discord.azguard.my.id/) immediately!
+  </Accordion>
+</AccordionGroup>
+
