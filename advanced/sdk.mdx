@@ -1,0 +1,78 @@
+---
+title: 'AzarineGuard SDK'
+description: 'For apps development, here is a simple SDK for you!'
+icon: 'gear'
+---
+
+<Danger> SDK DOES NOT CONTAIN ANTI-TAMPER / ENCRYPTION / ADVANCED SECURITY! </Danger>
+
+## Library Sample Usage
+
+We have built a simple SDK that you can use to for key check UI or custom apps (LuaU).
+
+```lua
+local sdk = loadstring(game:HttpGet("https://cdn.azguard.my.id/sdk.lua"))() --// This is the official AzarineGuard SDK, always check it before using!
+
+sdk.script_id = "SC-t4rF1mRoSvy" --// Get your Script ID on AzarineGuard Central
+
+
+local response = sdk.auth(script_key or InputBox1.Text or 'AZARINEGUARD-ON-TOP') --// This must be a string!
+
+--// A sample logic 
+if response.CODE == "KEY_VALID" then --// When the user is successfully authenticated
+    print("Welcome to:".. response.SCRIPTNAME .. " V".. response.SCRIPTVERSION)
+    print("You are using Premium: "..tostring(response.ISPREMIUM))
+
+    local date_time_string
+
+    if response.KEYEXPIRY == -1 then
+        date_time_string = "Lifetime Access"
+    else
+        local epoch_timestamp = response.KEYEXPIRY
+
+        local GMT_PLUS_7_OFFSET = 7 * 3600
+
+        local adjusted_timestamp = epoch_timestamp + GMT_PLUS_7_OFFSET
+
+        date_time_string = os.date("%Y-%m-%d %H:%M:%S GMT+7", adjusted_timestamp)
+    end
+
+    print("Your key will expire on: "..date_time_string)
+    print("Your key is from ads: "..tostring(response.KEYFROMADS))
+
+    script_key = 'AZARINEGUARD-ON-TOP'
+
+    sdk.load() --// Load the script stored in our CDN based on the script_id
+    --// YOU MUST SPECIFY script_key BEFORE DOING THIS!!!
+elseif response.CODE == "NETWORK_ERROR" then --// Network issues 
+    print("Oops, we can't reach AzarineGuard server (are you in the jungle or smth?)")
+    return
+elseif response.CODE == "SCRIPT_INVALID" then --// Script was not found
+    print("Script configured was not found on server (lost maybe idk)")
+    return
+elseif response.CODE == "SCRIPT_DISABLED" then --// Script disabled on central
+    print("Script is currently disabled, locked from strangers!")
+    return
+elseif response.CODE == "OWNER_EXPIRED" then --// Owner AzarineGuard subscription was expired
+    print("Damn, Owner AzarineGuard subscription expired, pay up lil bro")
+    return
+elseif response.CODE == "USER_BLACKLISTED" then --// This user key / IP / HWID / DiscordID was blacklisted 
+    print("Nope, you are blacklisted, womp womp.")
+    return
+elseif response.CODE == "KEY_INVALID" then --// The key entered was not found
+    print("Trying to fake the key, no chance buddy!")
+    return
+elseif response.CODE == "KEY_NOT_REDEEMED" then --// Key haven't been linked to a Discord Acccount
+    print("Sirrr, why dont you redeem it...") 
+    return
+elseif response.CODE == "KEY_EXPIRED" then  --// Key expired 
+    print("Renew your key mannn, do the ads or smth.")
+    return
+elseif response.CODE == "HWID_LOCKED" then --// User HWID was linked to another device (reset it)
+    print("Broo, dont share your key, reset HWID at panel!")
+    return
+else --// Yeah idk what to put in here, this is just an anticipation or smth
+    print("AzarineGuard on top guys, but how did you reach this section?")
+    return
+end
+```

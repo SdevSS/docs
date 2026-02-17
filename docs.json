@@ -27,7 +27,8 @@
                     {
                         "group": "Customization",
                         "pages": [
-                            "advanced/macros"
+                            "advanced/macros",
+                            "advanced/sdk"
                         ]
                     },
                     {
