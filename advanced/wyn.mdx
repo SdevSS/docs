@@ -1,0 +1,31 @@
+---
+title: 'Obfuscator Macros'
+description: 'Maximize our wYn obfuscation provider'
+icon: 'gear'
+---
+
+<Note> Obfuscations are provided by [wYnFuscate](https://wynfuscate.com) </Note>
+
+For the latest / full documentation, visit [wYnFuscate Docs](https://wynfuscate.com/docs/macros)
+
+## wYnFuscate Macros
+
+<ResponseField name="WYNF_OBFUSCATED" type="bool">
+A compile-time constant that evaluates to true in obfuscated builds. <br />
+_In plain Lua (non-obfuscated), it behaves like a normal global (typically nil/false)._
+
+```lua
+
+if WYNF_OBFUSCATED then
+    -- This code only exists in obfuscated builds
+    print("Running protected version")
+else
+    -- This branch is completely removed from obfuscated output
+    print("Running development version")
+end
+
+```
+
+</ResponseField>
+
+
