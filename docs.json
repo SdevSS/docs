@@ -28,6 +28,7 @@
                         "group": "Customization",
                         "pages": [
                             "advanced/macros",
+                            "advanced/wyn",
                             "advanced/sdk"
                         ]
                     },

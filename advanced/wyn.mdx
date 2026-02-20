@@ -4,7 +4,7 @@ description: 'Maximize our wYn obfuscation provider'
 icon: 'gear'
 ---
 
-<Note> Obfuscations are provided by [wYnFuscate](https://wynfuscate.com) </Note>
+<Note> Obfuscations are provided by our official partner ([wYnFuscate](https://wynfuscate.com)) </Note>
 
 For the latest / full documentation, visit [wYnFuscate Docs](https://wynfuscate.com/docs/macros)
 
@@ -27,5 +27,246 @@ end
 ```
 
 </ResponseField>
+
+
+
+<ResponseField name="WYNF_NO_VIRTUALIZE" type="function wrapper">
+
+Marks a function to run as native Lua instead of inside the VM <br />
+_This bypasses VM overhead for performance-critical code like hot loops or heavy math/table/string operations._
+<Danger> Code in `WYNF_NO_VIRTUALIZE` is NOT protected through virtualization. </Danger>
+```lua
+
+-- Math operations (OK - no sensitive data)
+local fastMath = WYNF_NO_VIRTUALIZE(function(a, b)
+    return math.sqrt(a * a + b * b)
+end)
+
+-- Table iteration (OK - pure computation)
+local sumTable = WYNF_NO_VIRTUALIZE(function(tbl)
+    local sum = 0
+    for _, v in ipairs(tbl) do
+        sum = sum + v
+    end
+    return sum
+end)
+
+-- String formatting (OK - no secrets)
+local formatNumber = WYNF_NO_VIRTUALIZE(function(n)
+    return string.format("%.2f", n)
+end)
+
+```
+
+</ResponseField>
+
+<ResponseField name="WYNF_JIT" type="function wrapper">
+
+Marks a function for Wynfuscate's JIT-style micro-VM execution path. <br />
+_The function remains virtualized (it still runs encrypted bytecode), but executes under a more performance-oriented interpreter template than the main VM loop._
+
+```lua
+
+local fast = WYNF_JIT(function(a, b)
+    local sum = 0
+    for i = 1, a do
+        sum = sum + i * b
+    end
+    return sum
+end)
+
+print(fast(10, 3))
+
+```
+
+</ResponseField>
+
+<ResponseField name="WYNF_CRASH" type="function call">
+
+Immediately and securely crashes the VM, corrupting the VM context to prevent recovery or analysis.<br />
+_Use this as a last-resort defense when tampering or unauthorized access is detected._
+
+```lua
+
+-- Standalone call
+WYNF_CRASH()
+
+-- As a return statement
+return WYNF_CRASH()
+
+-- In a conditional
+if tamperingDetected then
+    WYNF_CRASH()
+end
+
+```
+
+</ResponseField>
+
+<ResponseField name="WYNF_IS_CALLER_WYNFUSCATE" type="function call">
+
+Returns `true` if the current function was called from within your obfuscated code
+_Returns `false` if it was called from an external source like an exploit script._
+
+```lua
+
+-- Standalone call
+WYNF_CRASH()
+
+-- As a return statement
+return WYNF_CRASH()
+
+-- In a conditional
+if tamperingDetected then
+    WYNF_CRASH()
+end
+
+```
+
+</ResponseField>
+
+<ResponseField name="WYNF_ENC_STRING" type="string wrapper">
+
+Applies additional encryption layers to a string literal, providing extra protection for highly sensitive values like API keys, passwords, and encryption keys.
+
+```lua
+
+-- These strings get extra protection
+local API_KEY = WYNF_ENC_STRING("sk-live-abc123xyz")
+local DB_PASSWORD = WYNF_ENC_STRING("super_secret_db_pass")
+
+-- Regular strings are still encrypted
+local greeting = "Hello, World!"
+
+print(API_KEY)      -- Extra encryption layers
+print(greeting)     -- Standard encryption
+
+```
+
+</ResponseField>
+
+<ResponseField name="WYNF_ENC_NUM" type="number wrapper">
+
+Protects a numeric literal by encoding it in an encrypted form, preventing magic numbers from being trivially found via memory scanning or static analysis.
+
+```lua
+
+-- These numbers get extra protection
+local PRODUCT_ID = WYNF_ENC_NUM(829371)
+local SALT = WYNF_ENC_NUM(1337)
+local THRESHOLD = WYNF_ENC_NUM(9999)
+
+print(PRODUCT_ID)   -- Encrypted, not trivially greppable
+
+```
+
+</ResponseField>
+
+
+<ResponseField name="WYNF_LINE" type="function call">
+
+Expands to the current source line number at compile time.
+_This provides a stable line marker for logs and error messages without relying on VM debug info, which is stripped during obfuscation._
+
+```lua
+
+-- Get current line number
+local here = WYNF_LINE()
+
+-- Use in error messages
+error("unexpected state at line " .. WYNF_LINE())
+
+-- Use in logging
+print("[DEBUG] Checkpoint reached at line " .. WYNF_LINE())
+
+```
+
+</ResponseField>
+
+<ResponseField name="WYNF_NO_UPVALUES" type="function wrapper">
+
+Creates a lightweight wrapper around your function for compatibility with certain environments or APIs that have issues with virtualized functions used as callbacks.
+
+```lua
+
+-- Wrap functions used as callbacks
+local callback = WYNF_NO_UPVALUES(function(a, b)
+    return a + b
+end)
+
+-- Pass to APIs that expect callbacks
+someSignal:Connect(callback)
+hookFunction(callback)
+
+```
+
+</ResponseField>
+
+<ResponseField name="WYNF_SECURE_CALL" type="function wrapper">
+
+Marks a function as VM-only callable.
+_Calls to this function will only succeed when they originate from inside your obfuscated code._
+
+```lua
+
+local internalDecoder = WYNF_SECURE_CALL(function(data)
+    -- This function can only be called from your obfuscated code
+    return decode(data)
+end)
+
+-- Works when called internally
+local result = internalDecoder(someData)
+
+-- If an attacker calls internalDecoder() from outside,
+-- the call is rejected (fail-closed)
+
+```
+
+</ResponseField>
+
+<ResponseField name="WYNF_SECURE_CALLBACK" type="function wrapper">
+
+Returns a wrapped callback that performs a caller gate before invoking your function.
+_Intended for event handlers and callbacks that are called by external systems like Roblox signals, RemoteEvents, and UI events._
+
+```lua
+
+local function onEvent(player, payload)
+    -- Your protected logic
+    processData(player, payload)
+end
+
+-- Wrap the callback before connecting
+RemoteEvent.OnServerEvent:Connect(WYNF_SECURE_CALLBACK(onEvent))
+
+-- RemoteEvent (Server)
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Remote = ReplicatedStorage:WaitForChild("MyRemote")
+
+Remote.OnServerEvent:Connect(WYNF_SECURE_CALLBACK(function(player, action, payload)
+    if action == "purchase" then
+        -- handle purchase
+    end
+end))
+
+-- UI Button (Client)
+local button = script.Parent:WaitForChild("Button")
+button.MouseButton1Click:Connect(WYNF_SECURE_CALLBACK(function()
+    -- handle click
+end))
+
+```
+
+</ResponseField>
+
+
+Last Updated: 20 February 2026
+
+
+
+
+
+
+
 
 
